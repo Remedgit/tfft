@@ -23,7 +23,7 @@ echo -e "\033[0;32m[+] PTABLE文件路径已设置为: $PTABLE_FILE"
 # 刷入PTABLE这一块
 if [ -f "$PTABLE_FILE" ]; then
     echo -e "[+] 找到文件: $PTABLE_FILE"
-    python3 bin/splituapp.py -f update/PTABLE.APP
+    python3 bin/splituapp.py -f $PTABLE_FILE
     cd tfft_tmp
     echo -e "\033[0;36m正在刷入分区: ptable, 文件: hisiufs_gpt"
     fastboot flash ptable hisiufs_gpt.img
@@ -55,7 +55,7 @@ fi
 if [ -f "$UPDATE_FILE" ]; then
     echo -e "[+] 找到文件: $UPDATE_FILE"
     echo -e "[+] 开始分解UPDATE"
-    python3 bin/splituapp.py -f update/UPDATE.APP
+    python3 bin/splituapp.py -f $UPDATE_FILE
     cd tfft_tmp
     echo -e "\033[0;36m正在刷入分区: ptable, 文件: hisiufs_gpt"
     fastboot flash ptable hisiufs_gpt.img
