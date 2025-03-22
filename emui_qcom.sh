@@ -25,10 +25,17 @@ if [ -f "$PTABLE_FILE" ]; then
     echo -e "[+] 找到文件: $PTABLE_FILE"
     python3 bin/splituapp.py -f $PTABLE_FILE
     cd tfft_tmp
-    echo -e "\033[0;36m正在刷入分区: ptable, 文件: qcomufs_gpt"
-    fastboot flash ptable qcomufs_gpt.img
+    #删除无法刷入的分区&修复erec刷入失败
+    echo -e "\033[0;36m[+] 修复刷机包"
+    rm -rf sha256rsa.img
+    rm -rf crc.img
+    rm -rf base_verlist.img
+    rm -rf base_ver.img
+    rm -rf package_type.img
+    mv erecovery_ramdis.img erecovery_ramdisk.img 
+    echo -e "\033[0;36m高通机器无需更改分区表"
     echo
-    echo -e "\033[0;32m[+] 分区 ptable 刷入完毕！\033[0m"
+    echo -e "\033[0;32m[+] 分区 ptable 刷入跳过！\033[0m"
     rm -rf qcomufs_gpt.img
     for img_file in *.img; do
         # 获取分区名（去掉 .img 后缀）
@@ -57,10 +64,17 @@ if [ -f "$UPDATE_FILE" ]; then
     echo -e "[+] 开始分解UPDATE"
     python3 bin/splituapp.py -f $UPDATE_FILE
     cd tfft_tmp
-    echo -e "\033[0;36m正在刷入分区: ptable, 文件: qcomufs_gpt"
-    fastboot flash ptable qcomufs_gpt.img
+    #删除无法刷入的分区&修复erec刷入失败
+    echo -e "\033[0;36m[+] 修复刷机包"
+    rm -rf sha256rsa.img
+    rm -rf crc.img
+    rm -rf base_verlist.img
+    rm -rf base_ver.img
+    rm -rf package_type.img
+    mv erecovery_ramdis.img erecovery_ramdisk.img 
+    echo -e "\033[0;36m高通机器无需更改分区表"
     echo
-    echo -e "\033[0;32m[+] 分区 ptable 刷入完毕！\033[0m"
+    echo -e "\033[0;32m[+] 分区 ptable 刷入跳过！\033[0m"
     rm -rf qcomufs_gpt.img
     for img_file in *.img; do
         # 获取分区名（去掉 .img 后缀）
